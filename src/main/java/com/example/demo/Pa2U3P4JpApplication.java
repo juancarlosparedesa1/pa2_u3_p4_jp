@@ -28,6 +28,7 @@ public class Pa2U3P4JpApplication implements CommandLineRunner {
 
 		for (Hotel hotel : listaHotel) {
 			System.out.println(hotel);
+			// cambio
 		}
 
 	}
