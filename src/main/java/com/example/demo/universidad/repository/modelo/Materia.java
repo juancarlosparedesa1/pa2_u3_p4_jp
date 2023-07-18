@@ -2,6 +2,7 @@ package com.example.demo.universidad.repository.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Materia {
 	@OneToMany(mappedBy = "materia")
 	private List<Matricula> matriculas;
 //	relacion(hija)
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mate_id_semestre")
 	private Semestre semestre;
 
@@ -75,6 +76,14 @@ public class Materia {
 
 	public void setMatriculas(List<Matricula> matriculas) {
 		this.matriculas = matriculas;
+	}
+
+	public Semestre getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
 	}
 
 }

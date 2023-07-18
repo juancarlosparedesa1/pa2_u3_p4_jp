@@ -9,6 +9,7 @@ import com.example.demo.universidad.repository.modelo.Materia;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Transactional
@@ -25,10 +26,11 @@ public class MateriaRepositoryImpl implements IMateriaRepository {
 	}
 
 	@Override
-	public Materia SeleccionarPorCodigo(String codigo) {
-		Query myQuery = this.entityManager.createQuery("SELECT m FROM Materia m WHERE m.codigo=:datoCodigo");
+	public List<Materia> SeleccionarPorCodigo(String codigo) {
+		TypedQuery<Materia> myQuery = this.entityManager
+				.createQuery("SELECT m FROM Materia m WHERE m.codigo=:datoCodigo", Materia.class);
 		myQuery.setParameter("datoCodigo", codigo);
-		return (Materia) myQuery.getSingleResult();
+		return myQuery.getResultList();
 	}
 
 }

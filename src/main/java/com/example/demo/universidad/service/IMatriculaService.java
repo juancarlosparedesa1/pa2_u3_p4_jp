@@ -8,5 +8,5 @@ import com.example.demo.universidad.repository.modelo.Matricula;
 public interface IMatriculaService {
 	public void ingresar(Matricula matricula);
 
-	public void matricula(String cedula, List<Materia> codigosMateria);
+	public void matricula(String cedula, List<String> codigosMateria);
 }

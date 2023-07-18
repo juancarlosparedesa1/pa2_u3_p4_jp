@@ -2,6 +2,7 @@ package com.example.demo.universidad.repository.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,8 +35,8 @@ public class Estudiante {
 	@OneToMany(mappedBy = "estudiante")
 	private List<Matricula> matriculas;
 
-//	relacion(hija)-provincia
-	@ManyToOne
+//	relacion(hija)-provincia(padre)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "estu_id_provincia")
 	private Provincia provincia;
 

@@ -34,22 +34,27 @@ public class MatriculaServiceImpl implements IMatriculaService {
 	}
 
 	@Override
-	public void matricula(String cedula, List<Materia> codigosMateria) {
+	public void matricula(String cedula, List<String> codigosMateria) {
 		// TODO Auto-generated method stub
 
 		Estudiante estudianteBd = this.estudianteRepository.seleccionarPorCedula(cedula);
 
-		List<Matricula> matriculas = new ArrayList<>();
-		for (Materia materia : codigosMateria) {
+//		List<Matricula> matriculas = new ArrayList<>();
+		for (String codigoLista : codigosMateria) {
+			List<Materia> materiaBd = this.materiaRepository.SeleccionarPorCodigo(codigoLista);
+			for (Materia materiaLista : materiaBd) {
+				Matricula matricula = new Matricula();
+				matricula.setEstudiante(estudianteBd);
+				matricula.setFecha(LocalDateTime.now());
+				matricula.setMateria(materiaLista);
+				matricula.setPeriodo("ACM-1");
+				matricula.setSede("Quito");
+				matricula.setNumero("M-000" + estudianteBd.getId());
+				this.matriculaRepository.insertar(matricula);
 
-//			materia.setCodigo(this.materiaRepository.SeleccionarPorCodigo(materia.getCodigo()));
+			}
 
 		}
-//		Matricula matricula1 = new Matricula();
-//		matricula1.setEstudiante(estudianteBd);
-//		matricula1.setFecha(LocalDateTime.now());
-//		matricula1.setNumero("matr-000 " + estudianteBd.getId());
-
 	}
 
 }
