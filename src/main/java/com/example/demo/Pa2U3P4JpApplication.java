@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +8,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.repository.modelo.Habitacion;
-import com.example.demo.repository.modelo.Hotel;
-import com.example.demo.service.IHotelService;
+import com.example.demo.universidad.repository.modelo.Estudiante;
+import com.example.demo.universidad.repository.modelo.Materia;
+import com.example.demo.universidad.service.IEstudianteService;
+import com.example.demo.universidad.service.IMateriaService;
 
 @SpringBootApplication
 public class Pa2U3P4JpApplication implements CommandLineRunner {
 
 	@Autowired
-	private IHotelService hotelService;
+	private IEstudianteService estudianteService;
+	@Autowired
+	private IMateriaService materiaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4JpApplication.class, args);
@@ -25,60 +29,37 @@ public class Pa2U3P4JpApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		List<Hotel> listaHotel3 = this.hotelService.buscarOuterRightJoin();
+		Estudiante estudiante1 = new Estudiante();
+		estudiante1.setApellido("Paredes");
+		estudiante1.setCedula("1726000000");
+		estudiante1.setEdad("27");
+		estudiante1.setNombre("Juan Carlos");
 
-		for (Hotel hotel : listaHotel3) {
-			if (hotel == null) {
-				System.out.println("No Existe aun hotel");
-			} else {
-				System.out.println(hotel.getNombre());
+//		List<Materia> listaMaterias = new ArrayList<>();
 
-			}
-			// cambio
-		}
-		List<Hotel> listaHotel2 = this.hotelService.buscarOuterLeftJoin();
+		Materia materia1 = new Materia();
+		materia1.setCodigo("0001");
+		materia1.setNombre("Programacion Avanzada I");
+		materia1.setNumeroCreditos("10");
 
-		for (Hotel hotel : listaHotel2) {
-			if (hotel == null) {
-				System.out.println("No Existe aun hotel");
-			} else {
-				System.out.println(hotel.getNombre());
+		Materia materia2 = new Materia();
+		materia2.setCodigo("0001");
+		materia2.setNombre("Programacion Avanzada II");
+		materia2.setNumeroCreditos("20");
 
-			}
-			// cambio
-		}
-		List<Hotel> listaHotel = this.hotelService.buscarFullOuterJoin();
+		Materia materia3 = new Materia();
+		materia3.setCodigo("0003");
+		materia3.setNombre("Programacion Avanzada III");
+		materia3.setNumeroCreditos("30");
+//
+//		listaMaterias.add(materia1);
+//		listaMaterias.add(materia2);
+//		listaMaterias.add(materia3);
 
-		for (Hotel hotel : listaHotel) {
-			if (hotel == null) {
-				System.out.println("No Existe aun hotel");
-			} else {
-				System.out.println(hotel.getNombre());
-
-			}
-			// cambio
-		}
-
-		List<Hotel> listaHotel1 = this.hotelService.buscarWhereJoin();
-
-		for (Hotel hotel : listaHotel1) {
-			if (hotel == null) {
-				System.out.println("No Existe aun hotel");
-			} else {
-				System.out.println(hotel.getNombre());
-
-			}
-			// cambio
-		}
-
-		List<Habitacion> listaHotel4 = this.hotelService.buscarHabitacionOuterLeftJoin();
-
-		for (Habitacion hotel : listaHotel4) {
-
-			System.out.println(hotel);
-
-			// cambio
-		}
+		this.estudianteService.ingresar(estudiante1);
+		this.materiaService.ingresar(materia1);
+		this.materiaService.ingresar(materia2);
+		this.materiaService.ingresar(materia3);
 
 	}
 }
