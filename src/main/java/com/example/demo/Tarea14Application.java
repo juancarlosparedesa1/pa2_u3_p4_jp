@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.example.demo.modelo.banco.Cuenta;
 import com.example.demo.modelo.banco.Propietario;
@@ -31,6 +32,7 @@ public class Tarea14Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("Main: " + TransactionSynchronizationManager.isActualTransactionActive());
 		Propietario propietario1 = new Propietario();
 		propietario1.setNombre("Juan");
 		propietario1.setApellido("Paredes");
@@ -53,15 +55,15 @@ public class Tarea14Application implements CommandLineRunner {
 		listaCuenta.add(cuentaDestino);
 		propietario1.setCuentas(listaCuenta);
 
-//		this.iCuentaBancariaService.agregar(cuentaOrigen);
+		this.iCuentaBancariaService.agregar(cuentaOrigen);
 //		this.iCuentaBancariaService.agregar(cuentaDestino);
 
-		this.iTransferenciaService.transferir(1, 2, new BigDecimal(1000));
-
-		List<Transferencia> reporte = this.iTransferenciaService.reporte();
-		for (Transferencia transferencia : reporte) {
-			System.out.println(transferencia);
-		}
+//		this.iTransferenciaService.transferir(1, 2, new BigDecimal(1000));
+//
+//		List<Transferencia> reporte = this.iTransferenciaService.reporte();
+//		for (Transferencia transferencia : reporte) {
+//			System.out.println(transferencia);
+//		}
 
 	}
 
