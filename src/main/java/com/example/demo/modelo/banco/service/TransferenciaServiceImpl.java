@@ -12,12 +12,15 @@ import com.example.demo.modelo.banco.Transferencia;
 import com.example.demo.modelo.banco.repo.ICuentaRepo;
 import com.example.demo.modelo.banco.repo.ITransferenciaRepo;
 
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
+
 @Service
-public class TransferenciaServiceImpl implements ITransferenciaService{
-	
+public class TransferenciaServiceImpl implements ITransferenciaService {
+
 	@Autowired
 	private ITransferenciaRepo iTransferenciaRepo;
-	
+
 	@Autowired
 	private ICuentaRepo cuentaRepo;
 
@@ -28,30 +31,29 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRES_NEW) // para que se puedan aderir a la transaccion?
 	public void transferir(Integer idCuentaOrigen, Integer idCuentaDestino, BigDecimal monto) {
 		// TODO Auto-generated method stub
 		Cuenta origen = this.cuentaRepo.seleccionarPorId(idCuentaOrigen);
-		Cuenta destino=this.cuentaRepo.seleccionarPorId(idCuentaDestino);
-		
-		Transferencia trasf= new Transferencia();
+		Cuenta destino = this.cuentaRepo.seleccionarPorId(idCuentaDestino);
+
+		Transferencia trasf = new Transferencia();
 		trasf.setFecha(LocalDateTime.now());
 		trasf.setCuentaOrigen(origen);
 		trasf.setCuentaDestino(destino);
 		trasf.setMonto(monto);
-		
-		if(monto.compareTo(origen.getSaldo())<=0) {
+
+		if (monto.compareTo(origen.getSaldo()) <= 0) {
 			origen.setSaldo(origen.getSaldo().subtract(monto));
 			destino.setSaldo(destino.getSaldo().add(monto));
 			this.cuentaRepo.actualizar(origen);
 			this.cuentaRepo.actualizar(destino);
-		}else {
+		} else {
 			System.out.println("Saldo no disponible para el monto ingresado: " + monto);
 		}
-		
+
 		this.iTransferenciaRepo.insertar(trasf);
-		
-		
-		
+
 	}
 
 	@Override
@@ -59,7 +61,5 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
 		// TODO Auto-generated method stub
 		return this.iTransferenciaRepo.seleccionarTodos();
 	}
-	
-	
 
 }
