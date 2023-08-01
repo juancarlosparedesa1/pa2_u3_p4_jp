@@ -83,7 +83,7 @@ public class Pa2U3P4JpApplication implements CommandLineRunner {
 		listaMaterias.add(materia1);
 //		listaMaterias.add(materia2);
 //		listaMaterias.add(materia3);
-		
+
 		// Creo una lista de codigos de materias
 		List<String> codigosMateria = new ArrayList<>();
 
