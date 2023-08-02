@@ -114,6 +114,7 @@ public class Main {
 		IPersonaUnaryOperatorFunction<Integer> unary2 = numero -> numero + (numero * 2);
 		LOG.info("Unary Lambda2 : " + unary2.aplicar(3));
 
+		
 	}
 
 }
