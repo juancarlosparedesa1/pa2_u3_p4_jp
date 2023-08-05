@@ -9,5 +9,6 @@ public interface IEstudianteService {
 
 	public Estudiante buscarPorCedula(String cedula);
 
+	public String agregar2(Estudiante estudiante);
 
 }

@@ -31,6 +31,8 @@ public class Estudiante {
 	private String cedula;
 	@Column(name = "estu_edad")
 	private String edad;
+	@Column(name = "estu_numero")
+	private String numero;
 	// relacion(padre)-matricula
 	@OneToMany(mappedBy = "estudiante")
 	private List<Matricula> matriculas;
@@ -94,6 +96,14 @@ public class Estudiante {
 
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 }
